@@ -1,0 +1,7 @@
+.idea/
+vendor/
+phpunit.xml
+clover.xml
+composer.lock
+composer.phar
+phpunit.phar
