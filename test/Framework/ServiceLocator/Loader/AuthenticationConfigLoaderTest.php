@@ -8,6 +8,7 @@ use ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMi
 use ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
+use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -28,6 +29,9 @@ class AuthenticationConfigLoaderTest extends TestCase
             ServiceLocatorInterface::class => [
                 FactoryResolver::class => [
                     AuthenticatorInterface::class => AuthenticatorFactory::class,
+                ],
+                ReflectionResolver::class => [
+                    NotAuthenticatedMiddleware::class => NotAuthenticatedMiddleware::class,
                 ],
             ],
             MiddlewareChainInterface::class => [

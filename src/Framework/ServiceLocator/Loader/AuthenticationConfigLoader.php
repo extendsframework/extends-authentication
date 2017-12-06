@@ -9,6 +9,7 @@ use ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\Authenticat
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
+use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 
 class AuthenticationConfigLoader implements LoaderInterface
@@ -22,6 +23,9 @@ class AuthenticationConfigLoader implements LoaderInterface
             ServiceLocatorInterface::class => [
                 FactoryResolver::class => [
                     AuthenticatorInterface::class => AuthenticatorFactory::class,
+                ],
+                ReflectionResolver::class => [
+                    NotAuthenticatedMiddleware::class => NotAuthenticatedMiddleware::class,
                 ],
             ],
             MiddlewareChainInterface::class => [
