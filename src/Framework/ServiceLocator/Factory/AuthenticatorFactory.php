@@ -15,7 +15,7 @@ class AuthenticatorFactory implements ServiceFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): AuthenticatorInterface
+    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $config = $serviceLocator->getConfig();
         $config = $config[AuthenticatorInterface::class] ?? [];
@@ -38,7 +38,7 @@ class AuthenticatorFactory implements ServiceFactoryInterface
      * @return RealmInterface
      * @throws ServiceLocatorException
      */
-    protected function createRealm(ServiceLocatorInterface $serviceLocator, array $config): RealmInterface
+    protected function createRealm(ServiceLocatorInterface $serviceLocator, array $config): object
     {
         return $serviceLocator->getService($config['name'], $config['options'] ?? []);
     }

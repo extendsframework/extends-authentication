@@ -33,9 +33,9 @@ class AuthenticatorFactoryTest extends TestCase
                         [
                             'name' => AuthenticatorRealmStub::class,
                             'options' => [
-                                'foo' => 'bar'
+                                'foo' => 'bar',
                             ],
-                        ]
+                        ],
                     ],
                 ],
             ]);
@@ -77,7 +77,7 @@ class AuthenticatorRealmStub implements RealmInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null)
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         return new static();
     }
