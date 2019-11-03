@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
+use ExtendsFramework\Authentication\Exception\AuthenticationFailed;
 use ExtendsFramework\Authentication\Realm\RealmInterface;
 use ExtendsFramework\Authentication\Token\TokenInterface;
 use InvalidArgumentException;
@@ -98,12 +99,13 @@ class AuthenticatorTest extends TestCase
      * Test that when a realm throws an exception the next realm will not be called. For example when credentials are
      * invalid.
      *
-     * @covers            \ExtendsFramework\Authentication\Authenticator::addRealm()
-     * @covers            \ExtendsFramework\Authentication\Authenticator::authenticate()
-     * @expectedException InvalidArgumentException
+     * @covers \ExtendsFramework\Authentication\Authenticator::addRealm()
+     * @covers \ExtendsFramework\Authentication\Authenticator::authenticate()
      */
     public function testAuthenticationFailure(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $token = $this->createMock(TokenInterface::class);
 
         $realm = $this->createMock(RealmInterface::class);
@@ -135,14 +137,15 @@ class AuthenticatorTest extends TestCase
      *
      * Test that no realm can authenticate token and an exception will be thrown.
      *
-     * @covers                   \ExtendsFramework\Authentication\Authenticator::addRealm()
-     * @covers                   \ExtendsFramework\Authentication\Authenticator::authenticate()
-     * @covers                   \ExtendsFramework\Authentication\Exception\AuthenticationFailed::__construct()
-     * @expectedException        \ExtendsFramework\Authentication\Exception\AuthenticationFailed
-     * @expectedExceptionMessage No realm has succesfully authenticated token.
+     * @covers \ExtendsFramework\Authentication\Authenticator::addRealm()
+     * @covers \ExtendsFramework\Authentication\Authenticator::authenticate()
+     * @covers \ExtendsFramework\Authentication\Exception\AuthenticationFailed::__construct()
      */
     public function testAuthenticationNotSupported(): void
     {
+        $this->expectException(AuthenticationFailed::class);
+        $this->expectExceptionMessage('No realm has succesfully authenticated token.');
+
         $token = $this->createMock(TokenInterface::class);
 
         /**

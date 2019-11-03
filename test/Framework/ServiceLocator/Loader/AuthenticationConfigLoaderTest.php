@@ -20,7 +20,7 @@ class AuthenticationConfigLoaderTest extends TestCase
      *
      * @covers \ExtendsFramework\Authentication\Framework\ServiceLocator\Loader\AuthenticationConfigLoader::load()
      */
-    public function testLoad()
+    public function testLoad(): void
     {
         $loader = new AuthenticationConfigLoader();
 

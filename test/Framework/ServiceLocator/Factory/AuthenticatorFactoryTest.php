@@ -3,11 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication\Framework\ServiceLocator\Factory;
 
-use ExtendsFramework\Authentication\AuthenticationInfoInterface;
 use ExtendsFramework\Authentication\AuthenticatorInterface;
-use ExtendsFramework\Authentication\Realm\RealmInterface;
-use ExtendsFramework\Authentication\Token\TokenInterface;
-use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +15,6 @@ class AuthenticatorFactoryTest extends TestCase
      * Test that instance of AuthorizerInterface will be created.
      *
      * @covers \ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory::createService()
-     * @covers \ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory::createRealm()
      */
     public function testCreateService(): void
     {
@@ -53,32 +48,5 @@ class AuthenticatorFactoryTest extends TestCase
         $authenticator = $factory->createService(AuthenticatorInterface::class, $serviceLocator);
 
         $this->assertInstanceOf(AuthenticatorInterface::class, $authenticator);
-    }
-}
-
-class AuthenticatorRealmStub implements RealmInterface, StaticFactoryInterface
-{
-    /**
-     * @inheritDoc
-     */
-    public function canAuthenticate(TokenInterface $token): bool
-    {
-        return true;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getAuthenticationInfo(TokenInterface $token): ?AuthenticationInfoInterface
-    {
-        return null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
-        return new static();
     }
 }

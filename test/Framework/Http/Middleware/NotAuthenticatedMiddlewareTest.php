@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication\Framework\Http\Middleware;
 
-use ExtendsFramework\Authentication\AuthenticationException;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
 use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Logger\LoggerInterface;
 use ExtendsFramework\Logger\Priority\PriorityInterface;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 
 class NotAuthenticatedMiddlewareTest extends TestCase
@@ -21,7 +19,6 @@ class NotAuthenticatedMiddlewareTest extends TestCase
      *
      * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware::__construct()
      * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware::process()
-     * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware::getLogger()
      */
     public function testProcess(): void
     {
@@ -51,13 +48,9 @@ class NotAuthenticatedMiddlewareTest extends TestCase
         $middleware = new NotAuthenticatedMiddleware($logger);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertIsObject($response);
         if ($response instanceof ResponseInterface) {
             $this->assertSame(401, $response->getStatusCode());
         }
     }
-}
-
-class AuthenticationExceptionStub extends LogicException implements AuthenticationException
-{
 }
