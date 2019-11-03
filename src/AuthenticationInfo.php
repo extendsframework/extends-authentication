@@ -10,7 +10,7 @@ class AuthenticationInfo implements AuthenticationInfoInterface
      *
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * AuthenticationInfo constructor.

@@ -14,7 +14,7 @@ class Authenticator implements AuthenticatorInterface
      *
      * @var RealmInterface[]
      */
-    protected $realms = [];
+    private $realms = [];
 
     /**
      * @inheritDoc
@@ -22,7 +22,7 @@ class Authenticator implements AuthenticatorInterface
     public function authenticate(TokenInterface $token): AuthenticationInfoInterface
     {
         foreach ($this->realms as $realm) {
-            if ($realm->canAuthenticate($token) === true) {
+            if ($realm->canAuthenticate($token)) {
                 $info = $realm->getAuthenticationInfo($token);
                 if ($info instanceof AuthenticationInfoInterface) {
                     return $info;

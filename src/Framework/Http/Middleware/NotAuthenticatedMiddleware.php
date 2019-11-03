@@ -19,7 +19,7 @@ class NotAuthenticatedMiddleware implements MiddlewareInterface
      *
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     /**
      * NotAuthenticatedMiddleware constructor.
@@ -39,24 +39,12 @@ class NotAuthenticatedMiddleware implements MiddlewareInterface
         try {
             return $chain->proceed($request);
         } catch (AuthenticationException $exception) {
-            $this
-                ->getLogger()
-                ->log(sprintf(
-                    'Request authentication failed, got message "%s".',
-                    $exception->getMessage()
-                ), new NoticePriority());
+            $this->logger->log(sprintf(
+                'Request authentication failed, got message "%s".',
+                $exception->getMessage()
+            ), new NoticePriority());
 
             return (new Response())->withStatusCode(401);
         }
-    }
-
-    /**
-     * Get logger.
-     *
-     * @return LoggerInterface
-     */
-    protected function getLogger(): LoggerInterface
-    {
-        return $this->logger;
     }
 }
