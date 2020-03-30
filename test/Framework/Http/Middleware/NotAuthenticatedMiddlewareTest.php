@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication\Framework\Http\Middleware;
 
+use ExtendsFramework\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
-use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Logger\LoggerInterface;
 use ExtendsFramework\Logger\Priority\PriorityInterface;
 use PHPUnit\Framework\TestCase;
@@ -17,8 +17,8 @@ class NotAuthenticatedMiddlewareTest extends TestCase
      *
      * Test that authentication exception will be caught and a correct response will be returned.
      *
-     * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware::__construct()
-     * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware::process()
+     * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\UnauthorizedMiddleware::__construct()
+     * @covers \ExtendsFramework\Authentication\Framework\Http\Middleware\UnauthorizedMiddleware::process()
      */
     public function testProcess(): void
     {
@@ -41,16 +41,13 @@ class NotAuthenticatedMiddlewareTest extends TestCase
             ->willThrowException(new AuthenticationExceptionStub('Invalid credentials.'));
 
         /**
-         * @var RequestInterface         $request
+         * @var RequestInterface $request
          * @var MiddlewareChainInterface $chain
-         * @var LoggerInterface          $logger
+         * @var LoggerInterface $logger
          */
-        $middleware = new NotAuthenticatedMiddleware($logger);
+        $middleware = new UnauthorizedMiddleware($logger);
         $response = $middleware->process($request, $chain);
 
-        $this->assertIsObject($response);
-        if ($response instanceof ResponseInterface) {
-            $this->assertSame(401, $response->getStatusCode());
-        }
+        $this->assertInstanceOf(UnauthorizedProblemDetails::class, $response->getBody());
     }
 }

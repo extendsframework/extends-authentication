@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace ExtendsFramework\Authentication\Framework\ServiceLocator\Loader;
 
 use ExtendsFramework\Authentication\AuthenticatorInterface;
-use ExtendsFramework\Authentication\Framework\Http\Middleware\NotAuthenticatedMiddleware;
+use ExtendsFramework\Authentication\Framework\Http\Middleware\UnauthorizedMiddleware;
 use ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
@@ -30,7 +30,7 @@ class AuthenticationConfigLoaderTest extends TestCase
                     AuthenticatorInterface::class => AuthenticatorFactory::class,
                 ],
                 ReflectionResolver::class => [
-                    NotAuthenticatedMiddleware::class => NotAuthenticatedMiddleware::class,
+                    UnauthorizedMiddleware::class => UnauthorizedMiddleware::class,
                 ],
             ],
             AuthenticatorInterface::class => [

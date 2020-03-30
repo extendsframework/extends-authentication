@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsFramework\Authentication\Framework\Http\Middleware;
 
 use ExtendsFramework\Authentication\AuthenticationException;
+use ExtendsFramework\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
 use ExtendsFramework\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsFramework\Http\Middleware\MiddlewareInterface;
 use ExtendsFramework\Http\Request\RequestInterface;
@@ -12,7 +13,7 @@ use ExtendsFramework\Http\Response\ResponseInterface;
 use ExtendsFramework\Logger\LoggerInterface;
 use ExtendsFramework\Logger\Priority\Notice\NoticePriority;
 
-class NotAuthenticatedMiddleware implements MiddlewareInterface
+class UnauthorizedMiddleware implements MiddlewareInterface
 {
     /**
      * Logger.
@@ -22,7 +23,7 @@ class NotAuthenticatedMiddleware implements MiddlewareInterface
     private $logger;
 
     /**
-     * NotAuthenticatedMiddleware constructor.
+     * UnauthorizedMiddleware constructor.
      *
      * @param LoggerInterface $logger
      */
@@ -44,7 +45,9 @@ class NotAuthenticatedMiddleware implements MiddlewareInterface
                 $exception->getMessage()
             ), new NoticePriority());
 
-            return (new Response())->withStatusCode(401);
+            return (new Response())->withBody(
+                new UnauthorizedProblemDetails($request)
+            );
         }
     }
 }
