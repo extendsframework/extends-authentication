@@ -13,6 +13,6 @@ class AuthenticationFailed extends LogicException implements AuthenticationExcep
      */
     public function __construct()
     {
-        parent::__construct('No realm has succesfully authenticated token.');
+        parent::__construct('No realm has successfully authenticated header.');
     }
 }

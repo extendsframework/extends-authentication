@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace ExtendsFramework\Authentication;
 
 use ExtendsFramework\Authentication\Exception\AuthenticationFailed;
+use ExtendsFramework\Authentication\Header\HeaderInterface;
 use ExtendsFramework\Authentication\Realm\RealmInterface;
-use ExtendsFramework\Authentication\Token\TokenInterface;
 
 class Authenticator implements AuthenticatorInterface
 {
@@ -19,11 +19,11 @@ class Authenticator implements AuthenticatorInterface
     /**
      * @inheritDoc
      */
-    public function authenticate(TokenInterface $token): AuthenticationInfoInterface
+    public function authenticate(HeaderInterface $header): AuthenticationInfoInterface
     {
         foreach ($this->realms as $realm) {
-            if ($realm->canAuthenticate($token)) {
-                $info = $realm->getAuthenticationInfo($token);
+            if ($realm->canAuthenticate($header)) {
+                $info = $realm->getAuthenticationInfo($header);
                 if ($info instanceof AuthenticationInfoInterface) {
                     return $info;
                 }
@@ -37,6 +37,7 @@ class Authenticator implements AuthenticatorInterface
      * Add $realm to authenticator.
      *
      * @param RealmInterface $realm
+     *
      * @return Authenticator
      */
     public function addRealm(RealmInterface $realm): Authenticator

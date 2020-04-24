@@ -5,26 +5,28 @@ namespace ExtendsFramework\Authentication\Realm;
 
 use ExtendsFramework\Authentication\AuthenticationException;
 use ExtendsFramework\Authentication\AuthenticationInfoInterface;
-use ExtendsFramework\Authentication\Token\TokenInterface;
+use ExtendsFramework\Authentication\Header\HeaderInterface;
 
 interface RealmInterface
 {
     /**
-     * If this realm can authenticate $token.
+     * If this realm can authenticate header.
      *
-     * @param TokenInterface $token
+     * @param HeaderInterface $header
+     *
      * @return bool
      */
-    public function canAuthenticate(TokenInterface $token): bool;
+    public function canAuthenticate(HeaderInterface $header): bool;
 
     /**
-     * Get authentication information for $token.
+     * Get authentication information for header.
      *
      * When authentication fails, an exception will be thrown.
      *
-     * @param TokenInterface $token
+     * @param HeaderInterface $header
+     *
      * @return AuthenticationInfoInterface|null
      * @throws AuthenticationException
      */
-    public function getAuthenticationInfo(TokenInterface $token): ?AuthenticationInfoInterface;
+    public function getAuthenticationInfo(HeaderInterface $header): ?AuthenticationInfoInterface;
 }

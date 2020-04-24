@@ -3,18 +3,19 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
-use ExtendsFramework\Authentication\Token\TokenInterface;
+use ExtendsFramework\Authentication\Header\HeaderInterface;
 
 interface AuthenticatorInterface
 {
     /**
-     * Authenticate $token.
+     * Authenticate header.
      *
-     * An exception will be thrown when authentication fails or $token is not supported.
+     * An exception will be thrown when authentication fails.
      *
-     * @param TokenInterface $token
+     * @param HeaderInterface $header
+     *
      * @return AuthenticationInfoInterface
      * @throws AuthenticationException
      */
-    public function authenticate(TokenInterface $token): AuthenticationInfoInterface;
+    public function authenticate(HeaderInterface $header): AuthenticationInfoInterface;
 }

@@ -5,7 +5,7 @@ namespace ExtendsFramework\Authentication\Framework\ServiceLocator\Factory;
 
 use ExtendsFramework\Authentication\AuthenticationInfoInterface;
 use ExtendsFramework\Authentication\Realm\RealmInterface;
-use ExtendsFramework\Authentication\Token\TokenInterface;
+use ExtendsFramework\Authentication\Header\HeaderInterface;
 use ExtendsFramework\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 
@@ -22,7 +22,7 @@ class AuthenticatorRealmStub implements RealmInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function canAuthenticate(TokenInterface $token): bool
+    public function canAuthenticate(HeaderInterface $header): bool
     {
         return true;
     }
@@ -30,7 +30,7 @@ class AuthenticatorRealmStub implements RealmInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getAuthenticationInfo(TokenInterface $token): ?AuthenticationInfoInterface
+    public function getAuthenticationInfo(HeaderInterface $header): ?AuthenticationInfoInterface
     {
         return null;
     }
