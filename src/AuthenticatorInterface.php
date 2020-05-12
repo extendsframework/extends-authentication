@@ -14,8 +14,7 @@ interface AuthenticatorInterface
      *
      * @param HeaderInterface $header
      *
-     * @return AuthenticationInfoInterface
-     * @throws AuthenticationException
+     * @return AuthenticationInfoInterface|null
      */
-    public function authenticate(HeaderInterface $header): AuthenticationInfoInterface;
+    public function authenticate(HeaderInterface $header): ?AuthenticationInfoInterface;
 }

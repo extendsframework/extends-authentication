@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace ExtendsFramework\Authentication\Framework\ServiceLocator\Loader;
 
 use ExtendsFramework\Authentication\AuthenticatorInterface;
-use ExtendsFramework\Authentication\Framework\Http\Middleware\UnauthorizedMiddleware;
 use ExtendsFramework\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory;
 use ExtendsFramework\ServiceLocator\Resolver\Factory\FactoryResolver;
-use ExtendsFramework\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsFramework\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -28,9 +26,6 @@ class AuthenticationConfigLoaderTest extends TestCase
             ServiceLocatorInterface::class => [
                 FactoryResolver::class => [
                     AuthenticatorInterface::class => AuthenticatorFactory::class,
-                ],
-                ReflectionResolver::class => [
-                    UnauthorizedMiddleware::class => UnauthorizedMiddleware::class,
                 ],
             ],
             AuthenticatorInterface::class => [

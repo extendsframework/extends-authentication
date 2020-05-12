@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication\Realm;
 
-use ExtendsFramework\Authentication\AuthenticationException;
 use ExtendsFramework\Authentication\AuthenticationInfoInterface;
 use ExtendsFramework\Authentication\Header\HeaderInterface;
 
@@ -26,7 +25,6 @@ interface RealmInterface
      * @param HeaderInterface $header
      *
      * @return AuthenticationInfoInterface|null
-     * @throws AuthenticationException
      */
     public function getAuthenticationInfo(HeaderInterface $header): ?AuthenticationInfoInterface;
 }

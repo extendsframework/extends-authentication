@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
-use ExtendsFramework\Authentication\Exception\AuthenticationFailed;
-use ExtendsFramework\Authentication\Realm\RealmInterface;
 use ExtendsFramework\Authentication\Header\HeaderInterface;
+use ExtendsFramework\Authentication\Realm\RealmInterface;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -135,23 +134,19 @@ class AuthenticatorTest extends TestCase
     /**
      * Authentication not supported.
      *
-     * Test that no realm can authenticate header and an exception will be thrown.
+     * Test that no realm can authenticate header and null will be returned.
      *
      * @covers \ExtendsFramework\Authentication\Authenticator::addRealm()
      * @covers \ExtendsFramework\Authentication\Authenticator::authenticate()
-     * @covers \ExtendsFramework\Authentication\Exception\AuthenticationFailed::__construct()
      */
     public function testAuthenticationNotSupported(): void
     {
-        $this->expectException(AuthenticationFailed::class);
-        $this->expectExceptionMessage('No realm has successfully authenticated header.');
-
         $header = $this->createMock(HeaderInterface::class);
 
         /**
          * @var HeaderInterface $header
          */
         $authenticator = new Authenticator();
-        $authenticator->authenticate($header);
+        $this->assertNull($authenticator->authenticate($header));
     }
 }

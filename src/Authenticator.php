@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
-use ExtendsFramework\Authentication\Exception\AuthenticationFailed;
 use ExtendsFramework\Authentication\Header\HeaderInterface;
 use ExtendsFramework\Authentication\Realm\RealmInterface;
 
@@ -19,7 +18,7 @@ class Authenticator implements AuthenticatorInterface
     /**
      * @inheritDoc
      */
-    public function authenticate(HeaderInterface $header): AuthenticationInfoInterface
+    public function authenticate(HeaderInterface $header): ?AuthenticationInfoInterface
     {
         foreach ($this->realms as $realm) {
             if ($realm->canAuthenticate($header)) {
@@ -30,7 +29,7 @@ class Authenticator implements AuthenticatorInterface
             }
         }
 
-        throw new AuthenticationFailed();
+        return null;
     }
 
     /**
