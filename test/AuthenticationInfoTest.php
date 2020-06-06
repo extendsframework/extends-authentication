@@ -3,22 +3,28 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
+use ExtendsFramework\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 
 class AuthenticationInfoTest extends TestCase
 {
     /**
-     * Get identifier.
+     * Get identity.
      *
-     * Test that correct identifier will be returned.
+     * Test that correct identity will be returned.
      *
      * @covers \ExtendsFramework\Authentication\AuthenticationInfo::__construct()
-     * @covers \ExtendsFramework\Authentication\AuthenticationInfo::getIdentifier()
+     * @covers \ExtendsFramework\Authentication\AuthenticationInfo::getIdentity()
      */
     public function testGetIdentifier(): void
     {
-        $info = new AuthenticationInfo('foo-bar-baz');
+        $identity = $this->createMock(IdentityInterface::class);
 
-        $this->assertSame('foo-bar-baz', $info->getIdentifier());
+        /**
+         * @var IdentityInterface $identity
+         */
+        $info = new AuthenticationInfo($identity);
+
+        $this->assertSame($identity, $info->getIdentity());
     }
 }

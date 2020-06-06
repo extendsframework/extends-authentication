@@ -3,30 +3,32 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
+use ExtendsFramework\Identity\IdentityInterface;
+
 class AuthenticationInfo implements AuthenticationInfoInterface
 {
     /**
-     * Identifier.
+     * Identity.
      *
-     * @var string
+     * @var IdentityInterface
      */
-    private $identifier;
+    private $identity;
 
     /**
      * AuthenticationInfo constructor.
      *
-     * @param string $identifier
+     * @param IdentityInterface $identity
      */
-    public function __construct(string $identifier)
+    public function __construct(IdentityInterface $identity)
     {
-        $this->identifier = $identifier;
+        $this->identity = $identity;
     }
 
     /**
      * @inheritDoc
      */
-    public function getIdentifier(): string
+    public function getIdentity(): IdentityInterface
     {
-        return $this->identifier;
+        return $this->identity;
     }
 }

@@ -3,12 +3,14 @@ declare(strict_types=1);
 
 namespace ExtendsFramework\Authentication;
 
+use ExtendsFramework\Identity\IdentityInterface;
+
 interface AuthenticationInfoInterface
 {
     /**
-     * Get identifier.
+     * Get identity.
      *
-     * @return string
+     * @return IdentityInterface
      */
-    public function getIdentifier(): string;
+    public function getIdentity(): IdentityInterface;
 }
